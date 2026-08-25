@@ -9,7 +9,7 @@ namespace PropertyMaintenanceApi.Models
         public Building Building {get; set;} = null!;
         public required string ApartmentNumber {get; set;}
         public decimal? Cubature {get; set;}
-        public int NoOfHabitants {get; set;}
+        public int? NoOfHabitants {get; set;}
 
     }
 }

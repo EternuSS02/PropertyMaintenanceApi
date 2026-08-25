@@ -6,5 +6,6 @@ namespace PropertyMaintenanceApi.DTOs
     {
         public required string Name {get; set;}
         public required string Type {get; set;}
+        public required string FilePath {get; set;}
     }
 }
