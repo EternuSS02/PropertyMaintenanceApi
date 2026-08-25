@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PropertyMaintenanceApi.DTOs;
 using PropertyMaintenanceApi.Models;
-
+using Microsoft.EntityFrameworkCore;
 namespace PropertyMaintenanceApi.Controllers
 {
     [ApiController]
@@ -18,7 +18,10 @@ namespace PropertyMaintenanceApi.Controllers
     [HttpGet]
     public IActionResult GetServiceRequests() 
     {
-        List<ServiceRequest> serviceRequests = _context.ServiceRequests.ToList();
+        List<ServiceRequest> serviceRequests = _context.ServiceRequests
+            .Include(sr => sr.Apartment)
+                .ThenInclude(a => a.Building)
+            .ToList();
         List<ServiceRequestDto> serviceRequestsDto = new List<ServiceRequestDto>();
 
         foreach (ServiceRequest serviceRequest in serviceRequests)

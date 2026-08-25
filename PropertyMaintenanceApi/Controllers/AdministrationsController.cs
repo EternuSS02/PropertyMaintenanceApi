@@ -23,10 +23,10 @@ namespace PropertyMaintenanceApi.Controllers
 
         foreach (Administration administration in administrations)
         {
-        AdministrationDto myDto = new administrationDto {Name = administration.Name, Address = administration.Address, Mobile = administration.Mobile};
-        administrationDtos.Add(myDto);
+        AdministrationDto myDto = new AdministrationDto {Name = administration.Name, Address = administration.Address, Mobile = administration.Mobile};
+        AdministrationDtos.Add(myDto);
         }
-        return Ok(administrationDtos);
+        return Ok(AdministrationDtos);
     }
   
     }

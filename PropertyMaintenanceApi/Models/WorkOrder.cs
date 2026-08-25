@@ -10,7 +10,7 @@ namespace PropertyMaintenanceApi.Models
         public ServiceRequest ServiceRequest {get; set;} = null!;
         public int? ContractorId {get; set;}
         public Contractor? Contractor {get; set;}
-        public int? AssignedUserId {get; set;}
+        public int AssignedUserId {get; set;}
         public User? AssignedUser {get; set;}
         public required DateOnly Date {get; set;}
         public required string Status {get; set;}

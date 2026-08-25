@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PropertyMaintenanceApi.Models;
 using PropertyMaintenanceApi.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace PropertyMaintenanceApi.Controllers
 {
@@ -18,7 +19,9 @@ namespace PropertyMaintenanceApi.Controllers
     [HttpGet]
     public IActionResult GetBuildingMaintenanceRecords()
     {
-        List <BuildingMaintenanceRecord> buildingMaintenanceRecords = _context.BuildingMaintenanceRecords.ToList();
+        List <BuildingMaintenanceRecord> buildingMaintenanceRecords = _context.BuildingMaintenanceRecords
+            .Include(bmr => bmr.Building)
+            .ToList();
         List<BuildingMaintenanceRecordDto> buildingMaintenanceRecordDtos = new List<BuildingMaintenanceRecordDto>();
 
         foreach (BuildingMaintenanceRecord buildingMaintenanceRecord in buildingMaintenanceRecords)

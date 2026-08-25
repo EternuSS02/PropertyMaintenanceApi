@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PropertyMaintenanceApi.Models;
 using PropertyMaintenanceApi.DTOs;
-
+using Microsoft.EntityFrameworkCore;
 namespace PropertyMaintenanceApi.Controllers
 {
     [ApiController]
@@ -18,7 +18,12 @@ namespace PropertyMaintenanceApi.Controllers
     [HttpGet]
     public IActionResult GetWorkOrders()
     {
-        List<WorkOrder> workOrders = _context.WorkOrders.ToList();
+        List<WorkOrder> workOrders = _context.WorkOrders
+            .Include(wo => wo.ServiceRequest)
+                .ThenInclude(sr => sr.Apartment)
+                    .ThenInclude(a => a.Building)
+            .Include(wo => wo.AssignedUser)
+            .ToList();
         List<WorkOrderDto> workOrdersDto = new List<WorkOrderDto>();
 
         foreach (WorkOrder workOrder in workOrders)
