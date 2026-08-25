@@ -10,5 +10,6 @@ namespace PropertyMaintenanceApi.DTOs
         public UserDto? AssignedUser {get; set;}
         public required DateOnly Date {get; set;}
         public required string Status {get; set;}
+        public required decimal Cost {get; set;}
     }
 }
