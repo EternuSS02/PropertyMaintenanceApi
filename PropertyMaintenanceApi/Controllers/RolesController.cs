@@ -28,6 +28,22 @@ namespace PropertyMaintenanceApi.Controllers
         }
         return Ok(roleDtos);
     }
-  
+    [HttpPost]
+    public IActionResult CreateRole([FromBody] RoleDto newRole)
+        {
+            if (newRole == null)
+            {
+                return BadRequest("Role data is required.");
+            }
+
+            Role role = new Role
+            {
+                Name = newRole.Name,
+                Description = newRole.Description
+            };
+            _context.Roles.Add(role);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetRoles), new { id= role.Id}, newRole);
+        }
     }
 }

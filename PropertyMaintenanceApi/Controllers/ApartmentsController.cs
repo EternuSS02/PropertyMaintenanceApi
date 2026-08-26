@@ -45,6 +45,26 @@ public IActionResult GetApartments()
 
     return Ok(apartmentDtos);
 }
-  
+    [HttpPost]
+    public IActionResult CreateApartment([FromBody] ApartmentDto newApartment)
+        {
+            if (newApartment == null)
+            {
+                return BadRequest("Apartment data is required.");
+            }
+
+            Building? building = _context.Buildings.FirstOrDefault(b => b.Id == newApartment.Building.Id);
+
+            Apartment apartment = new Apartment
+            {
+                Building = building,
+                ApartmentNumber = newApartment.ApartmentNumber,
+                Cubature = newApartment.Cubature,
+                NoOfHabitants = newApartment.NoOfHabitants
+            };
+            _context.Apartments.Add(apartment);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetApartments), new { id = apartment.Id }, newApartment);
+        }
     }
 }

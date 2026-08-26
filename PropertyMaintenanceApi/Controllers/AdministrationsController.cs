@@ -28,6 +28,23 @@ namespace PropertyMaintenanceApi.Controllers
         }
         return Ok(AdministrationDtos);
     }
-  
+    [HttpPost]
+    public IActionResult CreateAdministration([FromBody] AdministrationDto newAdministration)
+        {
+            if (newAdministration == null)
+            {
+                return BadRequest("Administration data is required.");
+            }
+
+            Administration administration = new Administration
+            {
+                Name = newAdministration.Name,
+                Address = newAdministration.Address,
+                Mobile = newAdministration.Mobile
+            };
+            _context.Administrations.Add(administration);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetAdministrations), new { id = administration.Id}, newAdministration);
+        }
     }
 }
