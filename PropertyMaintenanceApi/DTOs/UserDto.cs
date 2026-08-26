@@ -7,6 +7,6 @@ namespace PropertyMaintenanceApi.DTOs
         public required string Name {get; set;}
         public required string Email {get; set;}
         public bool IsActive {get; set;} = true;
-        public ICollection<Role> Roles {get; set;} = new List<Role>();
+        public ICollection<RoleDto> Roles {get; set;} = new List<RoleDto>();
     }
 }
