@@ -43,7 +43,14 @@ namespace PropertyMaintenanceApi.Controllers
             };
             _context.Roles.Add(role);
             _context.SaveChanges();
-            return CreatedAtAction(nameof(GetRoles), new { id= role.Id}, newRole);
+
+            RoleDto createdDto = new RoleDto
+            {
+                Id = role.Id,
+                Name = role.Name,
+                Description = role.Description
+            };
+            return CreatedAtAction(nameof(GetRoles), new { id= role.Id}, createdDto);
         }
     }
 }

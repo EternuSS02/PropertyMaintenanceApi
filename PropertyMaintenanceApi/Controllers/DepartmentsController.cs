@@ -34,5 +34,22 @@ namespace PropertyMaintenanceApi.Controllers
 
             return Ok(departmentDtos);
         }
+        [HttpPost]
+        public IActionResult CreateDepartments([FromBody] DepartmentDto newDepartment)
+            {
+                if (newDepartment == null)
+                {
+                    return BadRequest("Departmet data is required");
+                }
+
+                Department department = new Department
+                {
+                    Name = newDepartment.Name,
+                    Description = newDepartment.Description
+                };
+                _context.Departments.Add(department);
+                _context.SaveChanges();
+                return CreatedAtAction(nameof(GetDepartments), new {id = department.Id}, newDepartment);
+            }
     }
 }

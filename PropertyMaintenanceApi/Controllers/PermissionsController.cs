@@ -28,6 +28,23 @@ namespace PropertyMaintenanceApi.Controllers
         }
         return Ok(permissionDtos);
     }
-  
+    [HttpPost]
+    public IActionResult CreatePermissions ([FromBody] PermissionDto newPermission)
+        {
+            if (newPermission == null)
+            {
+                return BadRequest("Permission data is required");
+            }
+
+        Permission permission = new Permission
+        {
+            Name = newPermission.Name,
+            Description = newPermission.Description
+        };
+        _context.Permissions.Add(permission);
+        _context.SaveChanges();
+
+        return CreatedAtAction (nameof(GetPermissions), new {id = permission.Id}, newPermission);
+        }
     }
 }
